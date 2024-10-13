@@ -8,6 +8,7 @@ import cv2
 import os
 import logging
 import traceback
+import torch
 from image_segmentation.segment_inference import face_segment
 from runners.image_editing import Diffusion
 from image_landmark_transform.face_landmark import face_landmark_transform
@@ -83,7 +84,7 @@ class app:
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         args['device'] = device
         args['seg_model'] = torch.load(args['seg_model_path'], map_location=device)
-        
+
         return args
 
     @st.cache
