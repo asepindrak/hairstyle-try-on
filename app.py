@@ -78,6 +78,12 @@ class app:
         args['image_folder'] = 'images' # The folder name of samples
         args['ni'] = True # No interaction. Suitable for Slurm Job launcher
         args['is_erode_mask'] = True
+
+        # Load the model with appropriate device mapping
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        args['device'] = device
+        args['seg_model'] = torch.load(args['seg_model_path'], map_location=device)
+        
         return args
 
     @st.cache
